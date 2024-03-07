@@ -10,4 +10,5 @@ public class HcsBackEndApplication {
 		SpringApplication.run(HcsBackEndApplication.class, args);
 	}
 
+
 }

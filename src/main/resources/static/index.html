@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Healthcare System</title>
     <link rel="stylesheet" href="stylesheets/home.css">
     <script src="../htmx/htmx.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <header>
+        <nav>
+            <h1>Healthcare System</h1>
+            <ul>
+                <!-- place holder values--->
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#" hx-get="/login" hx-trigger="click">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
         <h2>Welcome to Healthcare System</h2>
-        <form id="loginForm" hx-post="/login">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Login</button>
-        </form>
-    </div>
+        <p>Your trusted partner in healthcare.</p>
+        <div class="cta-buttons">
+            <a href="/doctor-login" class="btn-doctor">Doctor Login</a>
+            <a href="/patient-login" class="btn-patient">Patient Login</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Healthcare System. All rights reserved.</p>
+    </footer>
 </body>
 </html>
 
