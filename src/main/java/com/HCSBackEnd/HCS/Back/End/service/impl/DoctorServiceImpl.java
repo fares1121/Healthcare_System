@@ -45,9 +45,8 @@ public class DoctorServiceImpl implements Doctorservice {
                 () ->
                         new ResourceNotFoundException("Doctor not Found by ID: "+ doctorId)
         );
-
         doctor.setFirstName(updatedDoctor.getFirstName());
-        doctor.setLastName(updatedDoctor.getFirstName());
+        doctor.setLastName(updatedDoctor.getLastName());
         doctor.setSpecialization(updatedDoctor.getSpecialization());
         doctor.setEmailAddress(updatedDoctor.getEmailAddress());
         doctor.setPhoneNumber(updatedDoctor.getPhoneNumber());

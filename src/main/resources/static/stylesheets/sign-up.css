@@ -1,17 +1,17 @@
-/* Add custom styles for the login form */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
 }
 
 .container {
-    width: 300px;
+    max-width: 400px;
+    margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -35,6 +35,8 @@ label {
 }
 
 input[type="text"],
+input[type="email"],
+input[type="tel"],
 input[type="password"] {
     width: 100%;
     padding: 10px;
@@ -44,8 +46,8 @@ input[type="password"] {
     font-size: 16px;
 }
 
-button[type="submit"] {
-    width: -webkit-fill-available;
+button[type="button"] {
+    width: 100%;
     padding: 10px;
     background-color: #007bff;
     color: #fff;
@@ -53,28 +55,10 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 10px; 
+    transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
+button[type="button"]:hover {
     background-color: #0056b3;
 }
 
-
-.signup-link {
-    width: -webkit-fill-available;
-    text-align: center;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff; 
-    color: #fff;
-    text-decoration: none; 
-    border: none; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    margin-bottom: 10px;
-}
-
-.signup-link:hover {
-    background-color: #0056b3;
-}

@@ -32,6 +32,8 @@ public class Doctor {
 
     @Column(name = "phone_number")
     private String phoneNumber; // VARCHAR(20)
+
+    @Column(name = "current_address")
     private String currentAddress; // VARCHAR(100)
 
 }

@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class DoctorDto {
 
     private Long doctorId; // SERIAL PRIMARY KEY
