@@ -11,6 +11,14 @@
     <div class="container">
         <h2>Doctor Signup</h2>
         <form id="signupForm">
+	        <div class="form-group">
+		        <label for="username">Username:</label>
+		        <input type="text" name="username" id="username"required>
+	        </div>
+	        <div class="form-group">
+		        <label for="password">Password:</label>
+		        <input type="password" name="password" id="password" required>
+	        </div>
             <div class="form-group">
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" class="form-control" required>
@@ -28,34 +36,34 @@
 
             <div class="form-group">
                 <label for="gender">Gender:</label>
-                <input type="text" id="gender" name="gender" class="form-control">
+                <input type="text" id="gender" name="gender" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="currentAddress">Current Address:</label>
-                <input type="text" id="currentAddress" name="currentAddress" class="form-control">
+                <input type="text" id="currentAddress" name="currentAddress" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="phoneNumber">Phone Number:</label>
-                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control">
+                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="email" class="form-control">
+                <input type="text" id="email" name="email" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="insuranceProvider">Insurance Provider:</label>
-                <input type="text" id="insuranceProvider" name="insuranceProvider" class="form-control">
+                <input type="text" id="insuranceProvider" name="insuranceProvider" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="insurancePolicyNumber">Insurance Policy Number:</label>
-                <input type="text" id="insurancePolicyNumber" name="insurancePolicyNumber" class="form-control">
+                <input type="text" id="insurancePolicyNumber" name="insurancePolicyNumber" class="form-control" required>
             </div>
-
+			<div id="usernameInvalid" style="display: none; color: red;">Username associated with that account</div>
             <div id="errorMessage" style="display: none; color: red;">Please fill in all required fields.</div>
 
             <button type="button" id="submitBtn" class="btn btn-primary">Sign Up</button>
@@ -77,7 +85,13 @@
                         if (xhr.status === 201) {
                             console.log("Form submitted successfully.");
                             document.getElementById("errorMessage").style.display = "none";
-                        } else {
+                            document.getElementById("usernameInvalid").style.display = "none";
+                            window.location.href = "/";
+                        }
+                        else if(xhr.status == 500) {
+                            document.getElementById("usernameInvalid").style.display = "block";
+                        }
+                        else {
                             console.error("Form submission failed. Status: " + xhr.status);
                         }
                     }
