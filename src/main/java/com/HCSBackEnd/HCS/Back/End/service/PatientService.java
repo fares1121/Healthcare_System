@@ -10,5 +10,5 @@ public interface PatientService {
     List<PatientDto> getAllPatients();
     PatientDto updatePatient(Long patientId, PatientDto updatedPatient);
     void deletePatient(Long patientId);
-    boolean authenticatePatient(String username, String password);
+
 }

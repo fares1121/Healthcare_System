@@ -70,11 +70,5 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.deleteById(patientId);
     }
 
-    @Override
-    @Autowired
-    public boolean authenticatePatient(String username, String password) {
-        Patient patient = patientRepository.findByUsername(username);
-        if(patient != null && patient.getPassword().equals(password)) {return true;}
-        return false;
-    }
+
 }
