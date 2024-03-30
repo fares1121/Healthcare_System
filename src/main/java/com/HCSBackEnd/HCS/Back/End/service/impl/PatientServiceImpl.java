@@ -22,9 +22,6 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientDto createPatient(PatientDto patientDto) {
-        if(patientRepository.existsByUsername(patientDto.getUsername())) {
-            throw new IllegalArgumentException("Username already exists");
-        }
         Patient patient = PatientMapper.mapToPatient(patientDto);
         Patient savePatient = patientRepository.save(patient);
         return PatientMapper.mapToPatientDto(savePatient);

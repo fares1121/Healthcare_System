@@ -8,8 +8,6 @@ public class PatientMapper {
     public static PatientDto mapToPatientDto(Patient patient) {
         return new PatientDto(
                 patient.getPatientId(),
-                patient.getUsername(),
-                patient.getPassword(),
                 patient.getFirstName(),
                 patient.getLastName(),
                 patient.getDateOfBirth(),
@@ -26,8 +24,6 @@ public class PatientMapper {
     public static Patient mapToPatient(PatientDto patientDto) {
         return new Patient(
                 patientDto.getPatientId(),
-                patientDto.getUsername(),
-                patientDto.getPassword(),
                 patientDto.getFirstName(),
                 patientDto.getLastName(),
                 patientDto.getDateOfBirth(),
