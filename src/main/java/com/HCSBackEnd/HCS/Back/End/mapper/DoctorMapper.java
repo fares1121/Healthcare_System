@@ -10,6 +10,8 @@ public class DoctorMapper {
     public static DoctorDto mapToDoctorDto(Doctor doctor){
         return new DoctorDto(
                 doctor.getDoctorId(),
+                doctor.getUsername(),
+                doctor.getPassword(),
                 doctor.getFirstName(),
                 doctor.getLastName(),
                 doctor.getSpecialization(),
@@ -23,6 +25,8 @@ public class DoctorMapper {
     public static Doctor mapToDoctor(DoctorDto doctorDto){
         return new Doctor(
                 doctorDto.getDoctorId(),
+                doctorDto.getUsername(),
+                doctorDto.getPassword(),
                 doctorDto.getFirstName(),
                 doctorDto.getLastName(),
                 doctorDto.getSpecialization(),

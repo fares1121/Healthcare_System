@@ -7,12 +7,14 @@ import com.HCSBackEnd.HCS.Back.End.mapper.PatientMapper;
 import com.HCSBackEnd.HCS.Back.End.repository.PatientRepository;
 import com.HCSBackEnd.HCS.Back.End.service.PatientService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+
 @AllArgsConstructor
 public class PatientServiceImpl implements PatientService {
 
@@ -69,5 +71,13 @@ public class PatientServiceImpl implements PatientService {
             throw new ResourceNotFoundException("Patient not found with ID: " + patientId);
         }
         patientRepository.deleteById(patientId);
+    }
+
+    @Override
+    @Autowired
+    public boolean authenticatePatient(String username, String password) {
+        Patient patient = patientRepository.findByUsername(username);
+        if(patient != null && patient.getPassword().equals(password)) {return true;}
+        return false;
     }
 }
