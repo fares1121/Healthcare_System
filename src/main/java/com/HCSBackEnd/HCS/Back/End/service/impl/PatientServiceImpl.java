@@ -7,12 +7,14 @@ import com.HCSBackEnd.HCS.Back.End.mapper.PatientMapper;
 import com.HCSBackEnd.HCS.Back.End.repository.PatientRepository;
 import com.HCSBackEnd.HCS.Back.End.service.PatientService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+
 @AllArgsConstructor
 public class PatientServiceImpl implements PatientService {
 
@@ -20,9 +22,6 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientDto createPatient(PatientDto patientDto) {
-        if(patientRepository.existsByUsername(patientDto.getUsername())) {
-            throw new IllegalArgumentException("Username already exists");
-        }
         Patient patient = PatientMapper.mapToPatient(patientDto);
         Patient savePatient = patientRepository.save(patient);
         return PatientMapper.mapToPatientDto(savePatient);
@@ -70,4 +69,6 @@ public class PatientServiceImpl implements PatientService {
         }
         patientRepository.deleteById(patientId);
     }
+
+
 }

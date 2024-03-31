@@ -18,6 +18,11 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long doctorId; // SERIAL PRIMARY KEY
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
     @Column(name = "first_name")
     private String firstName; // VARCHAR(50) NOT NULL
 

@@ -12,6 +12,10 @@ import lombok.Setter;
 public class DoctorDto {
 
     private Long doctorId; // SERIAL PRIMARY KEY
+
+    private String username;
+
+    private String password;
     private String firstName; // VARCHAR(50) NOT NULL
     private String lastName; // VARCHAR(50) NOT NULL
     private String specialization; // VARCHAR(100) NOT NULL

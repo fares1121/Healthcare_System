@@ -22,11 +22,6 @@ public class Patient {
     @Column(name = "patient_id")
     private Long patientId; // SERIAL PRIMARY KEY
 
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "password")
-    private String password;
     @Column(name = "first_name")
     private String firstName; // VARCHAR(50) NOT NULL
 
