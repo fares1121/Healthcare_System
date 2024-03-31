@@ -1,0 +1,881 @@
+---
+openapi: 3.0.0
+info:
+  title: Healthcare API
+  description: This is a documentation for our group project for CEN5079
+  contact:
+    email: sina.nabavi16@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/CEN5079-RVD-1241/SOC2-Healthcare-DB/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: User
+  description: Secured User Calls
+- name: Developer
+  description: Privileged Calls
+paths:
+  /api/v1/appointment/:
+    get:
+      tags:
+      - User
+      summary: searchs for an appointment
+      description: |
+        By passing in the appropriate options, you can search for
+        available appointment in the system
+      operationId: searchAppointment
+      parameters:
+      - name: id
+        in: query
+        description: appointment id
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        "400":
+          description: bad input parameter
+    put:
+      tags:
+      - User
+      summary: modifies an appointment
+      description: |
+        By passing the new appointment, you can edit it on the database
+      operationId: modifyAppointment
+      parameters:
+      - name: id
+        in: query
+        description: Appointment id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: body
+        in: query
+        description: Appointment object that needs to be updated on the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Appointment'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+    post:
+      tags:
+      - User
+      summary: adds an appointment
+      description: |
+        By passing the appointment, you can add it to the database
+      operationId: addAppointment
+      parameters:
+      - name: body
+        in: query
+        description: Appointment object that needs to be added to the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Appointment'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+    delete:
+      tags:
+      - User
+      summary: deletes an appointment
+      description: |
+        By passing the appointment id, you can delete it
+      operationId: deleteAppointment
+      parameters:
+      - name: id
+        in: query
+        description: Appointment id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+  /api/v1/appointment/appointments/:
+    get:
+      tags:
+      - User
+      summary: gets all the appointments
+      description: |
+        You can get all the appointments in the system
+      operationId: fetchAppointments
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        "400":
+          description: bad input parameter
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+      security:
+      - OAuth2:
+        - admin
+  /api/v1/doctor/:
+    get:
+      tags:
+      - User
+      summary: searchs for a doctor
+      description: |
+        By passing in the appropriate options, you can search for
+        available doctors in the system
+      operationId: searchDoctor
+      parameters:
+      - name: id
+        in: query
+        description: doctor id
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+        "400":
+          description: bad input parameter
+    put:
+      tags:
+      - Developer
+      summary: modifies a doctor
+      description: |
+        By passing the new doctor object, you can edit it on the database
+      operationId: modifyDoctor
+      parameters:
+      - name: id
+        in: query
+        description: Doctor id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: body
+        in: query
+        description: Doctor object that needs to be updated on the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Doctor'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - developer
+    post:
+      tags:
+      - User
+      summary: adds a doctor
+      description: |
+        By passing the doctor info, you can add it to the database
+      operationId: addDoctor
+      parameters:
+      - name: body
+        in: query
+        description: Doctor object that needs to be added to the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Doctor'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+    delete:
+      tags:
+      - Developer
+      summary: deletes a doctor
+      description: |
+        By passing the doctor id, you can remove it
+      operationId: deleteDoctor
+      parameters:
+      - name: id
+        in: query
+        description: Doctor id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+  /api/v1/doctor/doctors/:
+    get:
+      tags:
+      - User
+      summary: gets all the doctors
+      description: |
+        You can get all the doctors in the system
+      operationId: fetchDoctors
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Doctor'
+        "400":
+          description: bad input parameter
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+      security:
+      - OAuth2:
+        - admin
+  /api/v1/patient/:
+    get:
+      tags:
+      - User
+      summary: searchs for a patinet
+      description: |
+        By passing in the appropriate options, you can search for
+        available patients in the system
+      operationId: searchPatient
+      parameters:
+      - name: id
+        in: query
+        description: patient id
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        "400":
+          description: bad input parameter
+    put:
+      tags:
+      - Developer
+      summary: modifies a patient
+      description: |
+        By passing the new patient object, you can edit it on the database
+      operationId: modifyPatient
+      parameters:
+      - name: id
+        in: query
+        description: Patient id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: body
+        in: query
+        description: Patient object that needs to be updated on the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Patient'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - developer
+    post:
+      tags:
+      - User
+      summary: adds a patient
+      description: |
+        By passing the patient info, you can add it to the database
+      operationId: addPatient
+      parameters:
+      - name: body
+        in: query
+        description: Patient object that needs to be added to the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Patient'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+    delete:
+      tags:
+      - Developer
+      summary: deletes a patient
+      description: |
+        By passing the patient id, you can remove it
+      operationId: deletePatient
+      parameters:
+      - name: id
+        in: query
+        description: Patient id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+  /api/v1/patient/patients/:
+    get:
+      tags:
+      - User
+      summary: gets all the patients
+      description: |
+        You can get all the patients in the system
+      operationId: fetchPatients
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+        "400":
+          description: bad input parameter
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+      security:
+      - OAuth2:
+        - admin
+  /api/v1/medical-record/:
+    get:
+      tags:
+      - User
+      summary: searchs for a medical record
+      description: |
+        By passing in the appropriate options, you can search for
+        available mr in the system
+      operationId: searchMR
+      parameters:
+      - name: record_id
+        in: query
+        description: medical record id
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalRecord'
+        "400":
+          description: bad input parameter
+    put:
+      tags:
+      - Developer
+      summary: modifies a medical record
+      description: |
+        By passing the new MR object, you can edit it on the database
+      operationId: modifyMedicalRecord
+      parameters:
+      - name: id
+        in: query
+        description: MR id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: body
+        in: query
+        description: MR object that needs to be updated on the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/MedicalRecord'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - developer
+    post:
+      tags:
+      - User
+      summary: adds a MR
+      description: |
+        By passing the MR info, you can add it to the database
+      operationId: addMedicalRecord
+      parameters:
+      - name: body
+        in: query
+        description: MR object that needs to be added to the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/MedicalRecord'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+    delete:
+      tags:
+      - Developer
+      summary: deletes a MR
+      description: |
+        By passing the MR id, you can remove it
+      operationId: deleteMedicalRecord
+      parameters:
+      - name: id
+        in: query
+        description: MR id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+  /api/v1/medical-record/patient/:
+    get:
+      tags:
+      - User
+      summary: gets MR for a patient
+      description: |
+        Get patient's medical record
+      operationId: fetchMedicalRecordbyPatientID
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalRecord'
+        "400":
+          description: bad input parameter
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+      security:
+      - OAuth2:
+        - admin
+  /api/v1/prescriptions/:
+    get:
+      tags:
+      - User
+      summary: searchs for a prescription
+      description: |
+        By passing in the appropriate options, you can search for
+        available prescription in the system
+      operationId: searchPrescription
+      parameters:
+      - name: prescription_id
+        in: query
+        description: prescription id
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prescription'
+        "400":
+          description: bad input parameter
+    put:
+      tags:
+      - Developer
+      summary: modifies a Prescription
+      description: |
+        By passing the new Prescription object, you can edit it on the database
+      operationId: modifyPrescription
+      parameters:
+      - name: id
+        in: query
+        description: Prescription id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: body
+        in: query
+        description: Prescription object that needs to be updated on the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Prescription'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - developer
+    post:
+      tags:
+      - User
+      summary: adds a prescription
+      description: |
+        By passing the Prescription info, you can add it to the database
+      operationId: addPrescription
+      parameters:
+      - name: Prescription
+        in: query
+        description: MR object that needs to be added to the DB
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Prescription'
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+    delete:
+      tags:
+      - Developer
+      summary: deletes a Prescription
+      description: |
+        By passing the Prescription id, you can remove it
+      operationId: deleteMedicalPrescription
+      parameters:
+      - name: id
+        in: query
+        description: Prescription id that needs to be modified
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+        "405":
+          description: Invalid input
+      security:
+      - OAuth2:
+        - user
+  /api/v1/prescrptions/patient/:
+    get:
+      tags:
+      - User
+      summary: gets Prescription for a patient
+      description: |
+        Get patient's prescription
+      operationId: fetchPrescriptionbyPatientID
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prescription'
+        "400":
+          description: bad input parameter
+        "401":
+          description: Not authenticated
+        "403":
+          description: Access token does not have the required scope
+      security:
+      - OAuth2:
+        - admin
+components:
+  schemas:
+    Prescription:
+      type: object
+      properties:
+        prescription_id:
+          type: integer
+          format: int64
+        patient_id:
+          type: integer
+          format: int64
+        start_date:
+          type: string
+          format: date
+          example: 2016-08-29
+        end_date:
+          type: string
+          format: date
+          example: 2017-08-29
+        doctor_id:
+          type: integer
+          format: int64
+        frequency:
+          type: string
+          description: once a week
+        medication_name:
+          type: string
+          description: Excedrin
+        instruction:
+          type: string
+          description: take the tablet with water
+        dosage:
+          type: string
+          description: 1 miligram
+    MedicalRecord:
+      type: object
+      properties:
+        record_id:
+          type: integer
+          format: int64
+        patient_id:
+          type: integer
+          format: int64
+        date_of_visit:
+          type: string
+          format: date
+          example: 2016-08-29
+        doctor_id:
+          type: integer
+          format: int64
+        diagnosis:
+          type: string
+          description: mild migraine
+        treatment:
+          type: string
+          description: MRI
+        prescription:
+          type: string
+          description: Excedrin
+    Patient:
+      type: object
+      properties:
+        patient_id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        current_address:
+          type: string
+          description: FIU Case 232
+        gender:
+          type: string
+          description: Male
+        insurance_provider:
+          type: string
+          description: UHealth
+        insurance_policy_number:
+          type: string
+    Doctor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        current_address:
+          type: string
+          description: FIU Case 232
+        specialization:
+          type: string
+          description: Optometry
+    Appointment:
+      required:
+      - appointment_date
+      - appointment_time
+      - doctor_id
+      - duration
+      - id
+      - patient_id
+      - reason
+      type: object
+      properties:
+        id:
+          type: number
+          format: uuid
+        doctor_id:
+          type: number
+          format: uuid
+        patient_id:
+          type: number
+          format: uuid
+        appointment_date:
+          type: string
+          format: date
+          example: 2016-08-29
+        appointment_time:
+          type: string
+          format: time
+          example: T09:12:33.001Z
+        duration:
+          type: integer
+          format: number
+        reason_for_visit:
+          type: string
+          example: back pain
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-Key
+      in: header
+    OpenID:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            admin: Grants access to admin operations
