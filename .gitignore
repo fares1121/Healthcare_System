@@ -4,3 +4,8 @@ node_modules
 npm-debug.log
 /target/
 .idea
+.classpath
+.factorypath
+.settings/
+pom.xml
+.vscode/
