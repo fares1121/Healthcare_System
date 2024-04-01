@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-HcsBackEndApplication<HCS-Back-End>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.HCSBackEnd.HCS.Back.End.HcsBackEndApplication",
+      "projectName": "HCS-Back-End",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
