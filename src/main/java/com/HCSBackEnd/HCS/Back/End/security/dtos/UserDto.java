@@ -17,4 +17,8 @@ public class UserDto {
     private String login;
     private String token;
 
+    // Do we need these here?
+    private boolean isUsing2FA;
+    private String secret;
+
 }

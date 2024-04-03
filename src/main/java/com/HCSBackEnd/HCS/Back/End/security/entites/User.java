@@ -34,4 +34,11 @@ public class User {
     @Column(nullable = false)
     @Size(max = 100)
     private String password;
+
+    @Column(nullable = false)
+    private boolean isUsing2FA;
+
+    @Column(nullable = false)
+    @Size(max = 100)
+    private String secret;
 }
