@@ -15,6 +15,10 @@ import java.sql.Timestamp;
 public class PatientDto {
 
     private Long patientId;
+
+    private String username;
+
+    private String password;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;

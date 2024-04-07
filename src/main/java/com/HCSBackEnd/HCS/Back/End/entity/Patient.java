@@ -22,6 +22,11 @@ public class Patient {
     @Column(name = "patient_id")
     private Long patientId; // SERIAL PRIMARY KEY
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
     @Column(name = "first_name")
     private String firstName; // VARCHAR(50) NOT NULL
 
@@ -49,8 +54,14 @@ public class Patient {
     @Column(name = "insurance_policy_number")
     private String insurancePolicyNumber; // VARCHAR(100) NOT NULL
 
+
    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
    @Getter
    @Setter
    private Timestamp createdAt; // TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+   @PrePersist
+   protected void onCreate() {
+       createdAt = new Timestamp(System.currentTimeMillis());
+   }
 }
