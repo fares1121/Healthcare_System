@@ -3,6 +3,9 @@ package com.HCSBackEnd.HCS.Back.End.security.config.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.HCSBackEnd.HCS.Back.End.security.config.auth.User;
+import com.HCSBackEnd.HCS.Back.End.security.config.auth.UserDto;
+import com.HCSBackEnd.HCS.Back.End.security.config.auth.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,11 +33,8 @@ public class UserServiceImpl implements UserService {
     public User loginUser(CredentialsDto credentialsDto) {
         User user = userRepository.findByLogin(credentialsDto.getLogin());
         if (user != null) {
-            // Hash the password provided in credentialsDto for comparison
-            String hashedPassword = passwordEncoder.encode(new String(credentialsDto.getPassword()));
-
-            // Compare the hashed passwords
-            if (passwordEncoder.matches(hashedPassword, user.getPassword())) {
+            // Compare the hashed password from the database with the raw password entered by the user
+            if (passwordEncoder.matches(new String(credentialsDto.getPassword()), user.getPassword())) {
                 return user; // Return the user if passwords match
             }
         }

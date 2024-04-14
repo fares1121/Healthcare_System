@@ -27,30 +27,48 @@
         document.getElementById("loginButton").addEventListener("click", function() {
             var form = document.getElementById("loginForm");
             if (form.checkValidity()) {
-                submitLoginForm();
+                // Retrieve CSRF token before authenticating user
+                fetch("/csrf-token")
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text();
+                        } else {
+                            throw new Error("Failed to fetch CSRF token");
+                        }
+                    })
+                    .then(csrfToken => {
+                        // Call authenticateUser function with CSRF token
+                        authenticateUser(csrfToken);
+                    })
+                    .catch(error => {
+                        console.error("Error fetching CSRF token:", error);
+                        alert("An error occurred while logging in. Please try again later.");
+                    });
             } else {
-                // If the form is invalid, display an error message or take appropriate action
+                // If the form is invalid, display an error message
+                alert("Please fill in all required fields.");
             }
         });
 
-        function submitLoginForm() {
+        function authenticateUser(csrfToken) {
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
 
-            // Create login data object
-            var loginData = {
+            var credentials = {
                 login: username,
                 password: password
             };
 
+            // Send AJAX request to login endpoint with CSRF token
             fetch("/api/v1/user/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken // Include CSRF token in request headers
                 },
-                body: JSON.stringify(loginData)
+                body: JSON.stringify(credentials)
             })
-            .then(function(response) {
+            .then(response => {
                 if (response.ok) {
                     alert("Login successful!");
                     // Optionally, redirect the user to another page
@@ -59,9 +77,9 @@
                     alert("Login failed. Please check your credentials.");
                 }
             })
-            .catch(function(error) {
-                console.error("Error submitting form:", error);
-                alert("An error occurred. Please try again later.");
+            .catch(error => {
+                console.error("Error logging in:", error);
+                alert("An error occurred while logging in. Please try again later.");
             });
         }
     </script>
