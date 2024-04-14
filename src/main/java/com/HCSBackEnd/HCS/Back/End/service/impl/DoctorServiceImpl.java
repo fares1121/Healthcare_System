@@ -5,8 +5,12 @@ import com.HCSBackEnd.HCS.Back.End.entity.Doctor;
 import com.HCSBackEnd.HCS.Back.End.exception.ResourceNotFoundException;
 import com.HCSBackEnd.HCS.Back.End.mapper.DoctorMapper;
 import com.HCSBackEnd.HCS.Back.End.repository.DoctorRepository;
+import com.HCSBackEnd.HCS.Back.End.security.config.auth.CredentialsDto;
+import com.HCSBackEnd.HCS.Back.End.security.config.auth.SignUpDto;
+import com.HCSBackEnd.HCS.Back.End.security.config.auth.UserService;
 import com.HCSBackEnd.HCS.Back.End.service.Doctorservice;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +21,23 @@ import java.util.stream.Collectors;
 public class DoctorServiceImpl implements Doctorservice {
 
     private DoctorRepository doctorRepository;
+    private UserService userService;
+
+
     @Override
     public DoctorDto createDoctor(DoctorDto doctorDto) {
-        Doctor doctor = DoctorMapper.mapToDoctor(doctorDto);
-        Doctor saveDoctor = doctorRepository.save(doctor);
-        return DoctorMapper.mapToDoctorDto(saveDoctor);
+        SignUpDto signUpDto = SignUpDto.builder()
+                .firstName(doctorDto.getFirstName())
+                .lastName(doctorDto.getLastName())
+                .login(doctorDto.getUsername())
+                .password(doctorDto.getPassword().toCharArray())
+                .email(doctorDto.getEmailAddress())
+                .build();
+
+        userService.registerUser(signUpDto);
+        Doctor savedDoctor = doctorRepository.save(DoctorMapper.mapToDoctor(doctorDto));
+
+        return DoctorMapper.mapToDoctorDto(savedDoctor);
     }
 
     @Override
@@ -64,4 +80,6 @@ public class DoctorServiceImpl implements Doctorservice {
         );
         doctorRepository.deleteById(doctorId);
     }
+
+
 }

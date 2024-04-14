@@ -1,6 +1,7 @@
 package com.HCSBackEnd.HCS.Back.End.service;
 
 import com.HCSBackEnd.HCS.Back.End.dto.DoctorDto;
+import com.HCSBackEnd.HCS.Back.End.security.config.auth.CredentialsDto;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface Doctorservice {
     DoctorDto updateDoctor(Long doctorId, DoctorDto updatedDoctor );
 
     void deleteDoctor(Long doctorId);
+
+
 }
