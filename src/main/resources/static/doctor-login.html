@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login</title>
 	<link rel="stylesheet" href="stylesheets/login.css">
 </head>
+
 <body>
 	<div class="container">
 		<h2>Welcome to Healthcare System</h2>
@@ -19,11 +21,19 @@
 				<input type="password" id="password" name="password" required>
 			</div>
 			<div id="errorMessage" style="display: none; color: red;">Incorrect username or password.</div>
-			<a href="/create-doctor.html" class="signup-link">Sign up</a>
-			<button type="button" id="loginButton">Login</button>
+			<labelth:text="#{label.form.login2fa}">
+				Google Authenticator Verification Code
+				</label>
+				<input type='text' name='code' />
+				<br></br>
+				<a href="/create-doctor.html" class="signup-link">Sign up</a>
+
+				<button type="button" id="loginButton">Login</button>
+
 		</form>
 	</div>
-	
+
 	<script src="js/login.js"></script>
 </body>
+
 </html>

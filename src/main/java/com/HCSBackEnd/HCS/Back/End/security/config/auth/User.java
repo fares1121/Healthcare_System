@@ -14,6 +14,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "app_user")
 public class User {
+    @Column(name = "is_using_twofa", nullable = true)
+    private Boolean isUsing2FA;
+
+    @Column(name = "secret", nullable = true)
+    @Size(max = 100)
+    private String secret;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +44,5 @@ public class User {
     @Column(nullable = false)
     @Size(max = 100)
     private String email;
+
 }
