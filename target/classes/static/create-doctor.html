@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Signup</title>
+    <link rel="stylesheet" href="stylesheets/sign-up.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Doctor Signup</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization">Specialization:</label>
+                <input type="text" id="specialization" name="specialization" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="emailAddress">Email Address:</label>
+                <input type="text" id="emailAddress" name="emailAddress" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="currentAddress">Current Address:</label>
+                <input type="text" id="currentAddress" name="currentAddress" class="form-control" required>
+            </div>
+            Use Two step verification <input type="checkbox" name="using2FA" value="true" />
+            <div id="errorMessage" style="display: none; color: red;">Please fill in all required fields.</div>
+
+            <button type="button" id="submitBtn" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+
+    <script src="js/create-doctor.js"></script>
+</body>
+
+</html>
